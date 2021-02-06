@@ -27,6 +27,9 @@ def color(level, str):
 def log_obj():
     return global_obj.get_obj("logger")
 
+
+
+
 def write_log(level, *args):
     ls = [ str(i) for i in args]
     s = " ".join(ls)
