@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import requests
-import demjson
-import ast
-
-
-def str2number(val):
-    if len(val) == 0 :
-        return 0
-    return float(val)
 
 
 def js2py_val(val):
+    import demjson
+    import ast
     try:
         val = ast.literal_eval(val) 
     except BaseException as error:

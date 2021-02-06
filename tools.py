@@ -28,3 +28,9 @@ def is_float(s):
     except BaseException as e:
         return False
     return True
+
+
+def tofloat(s):
+    if not is_float(s) :
+        return 0.0
+    return float("%.2f"%(float(s)))
