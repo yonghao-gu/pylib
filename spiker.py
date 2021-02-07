@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 
+from urllib.parse import urlencode, quote
 
 def js2py_val(val):
     import demjson
@@ -11,22 +12,34 @@ def js2py_val(val):
         val = demjson.decode(val)
     return val
 
+def url_encode(url,data):
+    return url + "?" + urlencode(data)
 
-def get_url(url):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0",
-    }
-    result = requests.get(url = url, headers = headers)
-    result.encoding ="utf-8"
-    return result
+def _set_headers(headers = None):
+    headers = headers if headers else {}
+    if not "User-Agent" in headers:
+        headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0"
+    return headers
 
-def get_session_url(url, session = None):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0",
-    }
-    if not session:
-        session = requests.session()
+
+
+
+def get_url(url, **kwg):
+    headers = _set_headers(kwg.get("headers", None))
+    session = kwg.get("session", None)
+    params = kwg.get("params", None)
     
-    result = session.get(url = url, headers = headers)
+    if session:
+        getfunc = session.get
+    else:
+        getfunc = requests.get
+    result = getfunc(url = url, headers = headers, params = params)
     result.encoding ="utf-8"
-    return result, session
+    return result,session
+
+def new_session():
+    return requests.session()
+
+
+
+

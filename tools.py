@@ -5,15 +5,15 @@ import log
 def __default_log(*args):
     print("已用时",args)
 
-def check_use_time(time_limit, log):
-    if not log:
-        log = print
+def check_use_time(time_limit = 0, log = None, desc = None):
+    log = log if log else print
+    desc = desc if desc else "流程总用时："
     def default_decorator(func):
         def wrappend_func(*args, **kwargs):
             fs = time.time()
             ret = func(*args, **kwargs) 
             if time.time() - fs > time_limit:
-                log("流程总用时：%d"%(time.time() - fs))
+                log("%s %d"%(desc, time.time() - fs))
             return ret
         return wrappend_func
     return default_decorator
@@ -30,7 +30,8 @@ def is_float(s):
     return True
 
 
-def tofloat(s):
+def tofloat(s, point = 2):
     if not is_float(s) :
         return 0.0
-    return float("%.2f"%(float(s)))
+    fmt = "%%.%df"%(point)
+    return float(fmt%(float(s)))
