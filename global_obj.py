@@ -2,12 +2,12 @@
 
 g_objs = {}
 
-def set_obj(name, obj):
+def set(name, obj):
     global g_objs
     assert(not name in g_objs)
     g_objs[name] = obj
 
-def get_obj(name):
+def get(name):
     return g_objs[name]
 
 

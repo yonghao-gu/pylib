@@ -25,7 +25,7 @@ def color(level, str):
 
 
 def log_obj():
-    return global_obj.get_obj("logger")
+    return global_obj.get("logger")
 
 
 

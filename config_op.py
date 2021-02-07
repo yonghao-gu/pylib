@@ -4,7 +4,7 @@ import json
 
 
 def load_config(file):
-    f = open(file, "r")
+    f = open(file, "r", encoding="utf-8")
     s = f.read()
     data = json.loads(s)
     f.close()

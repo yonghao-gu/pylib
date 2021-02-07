@@ -21,7 +21,10 @@ def _set_headers(headers = None):
         headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0"
     return headers
 
-
+def is_not_ok(result):
+    if result.status_code == 200:
+        return False
+    return True
 
 
 def get_url(url, **kwg):
