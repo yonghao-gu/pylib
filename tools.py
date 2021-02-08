@@ -43,3 +43,16 @@ def tofloat(s, point = 2):
         return 0.0
     fmt = "%%.%df"%(point)
     return float(fmt%(float(s)))
+
+def split_list(ls, n):
+    '''
+    将ls列表切分为n份
+    '''
+    length = len(ls)
+    step = int(length/n)+1
+    newlist = []
+    for i in range(0, length, step):
+        newlist.append(ls[i:i+step])
+    return newlist
+
+
