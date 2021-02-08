@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 import log
+import types
 
 def __default_log(*args):
     print("已用时",args)
@@ -13,7 +14,14 @@ def check_use_time(time_limit = 0, log = None, desc = None):
             fs = time.time()
             ret = func(*args, **kwargs) 
             if time.time() - fs > time_limit:
-                log("%s %d"%(desc, time.time() - fs))
+                if type(desc) == types.FunctionType:
+                    s = desc(*args, **kwargs)
+                    if s:
+                        log("%s %d"%(s, time.time() - fs))
+                    else:
+                        log("desc function false")
+                else:
+                    log("%s %d"%(desc, time.time() - fs))
             return ret
         return wrappend_func
     return default_decorator
