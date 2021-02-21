@@ -13,10 +13,15 @@ class CThread(threading.Thread):
     def run(self):
         if not self.m_func:
             return
+        l = len(self.m_args)
+        i=0
         for args in self.m_args:
             r = self.m_func(self, *args)
+            i+=1
+            print("run:", l -i, str(self))
             if r:
                 self.m_result.append(r)
+        print("thread_end:",str(self))
     
     def result(self):
         return self.m_result
@@ -45,14 +50,14 @@ def start_thread(func, thread_args, pool_size = 5):
     
     for obj in thread_list:
         obj.join()
+        print("done:",str(obj))
         result_list.extend(obj.result())
     return result_list
 
 if __name__ == "__main__":
     import time
     def f(tobj, s):
-        time.sleep(3)
         print("hello",s)
         return s
-    ls = [(i,) for i in range(10)]
+    ls = [(i,) for i in range(100)]
     print(start_thread(f, ls, 5))
