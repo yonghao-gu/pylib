@@ -18,10 +18,9 @@ class CThread(threading.Thread):
         for args in self.m_args:
             r = self.m_func(self, *args)
             i+=1
-            print("run:", l -i, str(self))
             if r:
                 self.m_result.append(r)
-        print("thread_end:",str(self))
+        
     
     def result(self):
         return self.m_result
