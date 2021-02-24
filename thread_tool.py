@@ -49,7 +49,6 @@ def start_thread(func, thread_args, pool_size = 5):
     
     for obj in thread_list:
         obj.join()
-        print("done:",str(obj))
         result_list.extend(obj.result())
     return result_list
 
